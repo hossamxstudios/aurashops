@@ -200,7 +200,11 @@ class PageController extends Controller {
             ->value('avg_items') ?? 0;
 
         // Low Performing Products (in stock but low/no sales in 30 days)
-        $lowPerformingProducts = Product::select('products.*')
+        $lowPerformingProducts = Product::query()
+            ->select([
+                'products.*',
+                DB::raw('COALESCE(SUM(order_items.qty), 0) as total_sold')
+            ])
             ->leftJoin('order_items', function($join) {
                 $join->on('products.id', '=', 'order_items.product_id')
                     ->where('order_items.created_at', '>=', today()->subDays(30));
@@ -208,9 +212,34 @@ class PageController extends Controller {
             ->join('stocks', 'products.id', '=', 'stocks.product_id')
             ->where('stocks.qty', '>', 0)
             ->where('products.is_active', true)
-            ->groupBy('products.id')
-            ->havingRaw('COALESCE(SUM(order_items.qty), 0) < 3')
-            ->orderByRaw('COALESCE(SUM(order_items.qty), 0) ASC')
+            ->groupBy([
+                'products.id',
+                'products.brand_id',
+                'products.gender_id',
+                'products.sku',
+                'products.barcode',
+                'products.type',
+                'products.name',
+                'products.slug',
+                'products.details',
+                'products.rating',
+                'products.base_price',
+                'products.price',
+                'products.sale_price',
+                'products.views_count',
+                'products.orders_count',
+                'products.meta_title',
+                'products.meta_desc',
+                'products.meta_keywords',
+                'products.is_active',
+                'products.is_featured',
+                'products.is_stockable',
+                'products.created_at',
+                'products.updated_at',
+                'products.deleted_at'
+            ])
+            ->having('total_sold', '<', 3)
+            ->orderBy('total_sold', 'ASC')
             ->take(5)
             ->get();
 

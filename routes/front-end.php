@@ -30,10 +30,12 @@ Route::middleware('guest:client')->group(function () {
 Route::middleware(['auth:client'])->group(function ()     {
     Route::get('/client/dashboard'                     , [ProfileController::class,                       'dashboard'])->name('client.dashboard');
     Route::get('/client/orders'                        , [ProfileController::class,                          'orders'])->name('client.orders');
+    Route::get('/client/orders/{order}'                , [ProfileController::class,                      'orderShow'])->name('client.orders.show');
     Route::get('/client/addresses'                     , [ProfileController::class,                       'addresses'])->name('client.addresses');
     Route::get('/client/addresses/add'                 , [ProfileController::class,                      'addAddress'])->name('client.addresses.add');
     Route::post('/client/addresses'                    , [ProfileController::class,                     'storeAddress'])->name('client.addresses.store');
     Route::get('/client/addresses/edit'                , [ProfileController::class,                     'editAddress'])->name('client.addresses.edit');
+    Route::post('/client/addresses/update'             , [ProfileController::class,                   'updateAddress'])->name('client.addresses.update');
     Route::delete('/client/addresses/delete'           , [ProfileController::class,                   'deleteAddress'])->name('client.addresses.delete');
     Route::get('/client/profile/edit'                  , [ProfileController::class,                            'edit'])->name('profile.edit');
     Route::patch('/client/profile/edit'                , [ProfileController::class,                          'update'])->name('client.profile.update');

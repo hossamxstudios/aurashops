@@ -12,29 +12,26 @@
                                         </a>
                                     </div>
                                     <div class="footer-address">
-                                        <p>549 Oak St.Crystal Lake, IL 60014</p>
-                                        <a href="contact.html" class="tf-btn-default fw-6">GET DIRECTION<i
+                                        <p>{{ $settings['address'] ?? '' }}</p>
+                                        <a href="{{ $settings['map_link'] ?? '' }}" target="_blank"  class="tf-btn-default fw-6">GET DIRECTION<i
                                                 class="icon-arrowUpRight"></i></a>
                                     </div>
                                     <ul class="footer-info">
                                         <li>
                                             <i class="icon-mail"></i>
-                                            <p>themesflat@gmail.com</p>
+                                            <p>{{ $settings['email'] ?? ''}}</p>
                                         </li>
                                         <li>
                                             <i class="icon-phone"></i>
-                                            <p>315-666-6688</p>
+                                            <p>{{ $settings['phone'] ?? ''}}</p>
                                         </li>
                                     </ul>
                                     <ul class="tf-social-icon">
-                                        <li><a href="#" class="social-facebook"><i class="icon icon-fb"></i></a></li>
-                                        <li><a href="#" class="social-twiter"><i class="icon icon-x"></i></a></li>
-                                        <li><a href="#" class="social-instagram"><i class="icon icon-instagram"></i></a>
-                                        </li>
-                                        <li><a href="#" class="social-tiktok"><i class="icon icon-tiktok"></i></a></li>
-                                        <li><a href="#" class="social-amazon"><i class="icon icon-amazon"></i></a></li>
-                                        <li><a href="#" class="social-pinterest"><i class="icon icon-pinterest"></i></a>
-                                        </li>
+                                        <li><a href="{{ $settings['facebook'] ?? ''  }}" class="social-facebook"><i class="icon icon-fb"></i></a></li>
+                                        <li><a href="{{ $settings['twitter']  ?? ''}}" class="social-twiter"><i class="icon icon-x"></i></a></li>
+                                        <li><a href="{{ $settings['instagram'] ?? '' }}" class="social-instagram"><i class="icon icon-instagram"></i></a></li>
+                                        <li><a href="{{ $settings['tiktok'] ?? ''}}" class="social-tiktok"><i class="icon icon-tiktok"></i></a></li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -47,23 +44,29 @@
                                         <div class="tf-collapse-content">
                                             <ul class="footer-menu-list">
                                                 <li class="text-caption-1">
-                                                    <a href="about-us.html" class="footer-menu_item">About Us</a>
+                                                    <a href="{{ route('about') }}" class="footer-menu_item">About Us</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Our Stories</a>
+                                                    <a href="{{ route('blogs') }}" class="footer-menu_item">Our Blog</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Size Guide</a>
+                                                    <a href="{{ route('tips') }}" class="footer-menu_item">Beauty Tips</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="contact.html" class="footer-menu_item">Contact us</a>
+                                                    <a href="{{ route('contact') }}" class="footer-menu_item">Contact Us</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Career</a>
+                                                    <a href="{{ route('shop.all') }}" class="footer-menu_item">Shop All Products</a>
                                                 </li>
+                                                @auth('client')
                                                 <li class="text-caption-1">
-                                                    <a href="my-account.html" class="footer-menu_item">My Account</a>
+                                                    <a href="{{ route('client.dashboard') }}" class="footer-menu_item">My Account</a>
                                                 </li>
+                                                @else
+                                                <li class="text-caption-1">
+                                                    <a href="{{ route('client.login') }}" class="footer-menu_item">Login / Register</a>
+                                                </li>
+                                                @endauth
                                             </ul>
                                         </div>
                                     </div>
@@ -74,24 +77,29 @@
                                         <div class="tf-collapse-content">
                                             <ul class="footer-menu-list">
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Shipping</a>
+                                                    <a href="{{ route('checkout.page') }}" class="footer-menu_item">Shipping Information</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Return & Refund</a>
+                                                    <a href="{{ route('contact') }}" class="footer-menu_item">Return & Refund</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="#" class="footer-menu_item">Privacy Policy</a>
+                                                    <a href="{{ route('contact') }}" class="footer-menu_item">Privacy Policy</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="term-of-use.html" class="footer-menu_item">Terms &
-                                                        Conditions</a>
+                                                    <a href="{{ route('contact') }}" class="footer-menu_item">Terms & Conditions</a>
+                                                </li>
+                                                @auth('client')
+                                                <li class="text-caption-1">
+                                                    <a href="{{ route('client.orders') }}" class="footer-menu_item">My Orders</a>
                                                 </li>
                                                 <li class="text-caption-1">
-                                                    <a href="FAQs.html" class="footer-menu_item">Orders FAQs</a>
+                                                    <a href="{{ route('wishlist.index') }}" class="footer-menu_item">My Wishlist</a>
                                                 </li>
+                                                @else
                                                 <li class="text-caption-1">
-                                                    <a href="wish-list.html" class="footer-menu_item">My Wishlist</a>
+                                                    <a href="{{ route('contact') }}" class="footer-menu_item">FAQs</a>
                                                 </li>
+                                                @endauth
                                             </ul>
                                         </div>
                                     </div>
@@ -217,9 +225,9 @@
                                                     </div>
                                                 </div>
                                                 <label class="text-caption-1" for="footer-Form_agree">
-                                                    By clicking subcribe, you agree to the <a class="fw-6 link"
-                                                        href="term-of-use.html">Terms of Service</a> and <a
-                                                        class="fw-6 link" href="#">Privacy Policy</a>.
+                                                    By clicking subscribe, you agree to the <a class="fw-6 link"
+                                                        href="{{ route('contact') }}">Terms of Service</a> and <a
+                                                        class="fw-6 link" href="{{ route('contact') }}">Privacy Policy</a>.
                                                 </label>
                                             </div>
                                         </div>
@@ -280,7 +288,7 @@
         <!-- toolbar-bottom -->
         <div class="tf-toolbar-bottom">
             <div class="toolbar-item">
-                <a href="shop-default-grid.html">
+                <a href="{{ route('shop.all') }}">
                     <div class="toolbar-icon">
                         <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -293,7 +301,7 @@
                 </a>
             </div>
             <div class="toolbar-item">
-                <a href="#shopCategories" data-bs-toggle="offcanvas" aria-controls="shopCategories">
+                <a href="{{ route('shop.all') }}">
                     <div class="toolbar-icon">
                         <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +327,7 @@
                 </a>
             </div>
             <div class="toolbar-item">
-                <a href="#wishlist" data-bs-toggle="modal">
+                <a href="{{ route('wishlist.index') }}">
                     <div class="toolbar-icon">
                         <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -327,13 +335,12 @@
                                 d="M17.4215 4.45326C16.5724 3.60627 15.4225 3.12997 14.2231 3.1285C13.0238 3.12704 11.8727 3.60054 11.0215 4.44545L9.99965 5.39467L8.97699 4.44232C8.12602 3.59373 6.9728 3.11795 5.77103 3.11963C4.56926 3.12132 3.41738 3.60034 2.56879 4.45131C1.7202 5.30228 1.24441 6.4555 1.2461 7.65727C1.24778 8.85904 1.7268 10.0109 2.57777 10.8595L9.55824 17.9423C9.6164 18.0014 9.68572 18.0483 9.76217 18.0803C9.83862 18.1123 9.92067 18.1288 10.0036 18.1288C10.0864 18.1288 10.1685 18.1123 10.2449 18.0803C10.3214 18.0483 10.3907 18.0014 10.4489 17.9423L17.4215 10.8595C18.2707 10.0098 18.7477 8.85768 18.7477 7.65639C18.7477 6.45509 18.2707 5.30296 17.4215 4.45326ZM16.5348 9.98139L9.99965 16.6095L3.46059 9.97514C2.8452 9.35975 2.49948 8.52511 2.49948 7.65482C2.49948 6.78454 2.8452 5.9499 3.46059 5.33451C4.07597 4.71913 4.91061 4.37341 5.7809 4.37341C6.65118 4.37341 7.48583 4.71913 8.10121 5.33451L8.11684 5.35014L9.57387 6.7056C9.68953 6.81324 9.84166 6.87307 9.99965 6.87307C10.1576 6.87307 10.3098 6.81324 10.4254 6.7056L11.8825 5.35014L11.8981 5.33451C12.5139 4.71954 13.3488 4.37438 14.219 4.37497C15.0893 4.37555 15.9237 4.72184 16.5387 5.33764C17.1537 5.95344 17.4988 6.78831 17.4983 7.6586C17.4977 8.52888 17.1514 9.36329 16.5356 9.97826L16.5348 9.98139Z"
                                 fill="#4D4E4F" />
                         </svg>
-                        <!-- <div class="toolbar-count">1</div> -->
                     </div>
                     <div class="toolbar-label">Wishlist</div>
                 </a>
             </div>
             <div class="toolbar-item">
-                <a href="#shoppingCart" data-bs-toggle="modal">
+                <a href="{{ route('cart.page') }}">
                     <div class="toolbar-icon">
                         <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

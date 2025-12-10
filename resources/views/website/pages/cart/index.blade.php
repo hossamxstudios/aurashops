@@ -130,14 +130,14 @@
                                 </table>
 
                                 <div class="mt-4 cart-action-buttons d-flex justify-content-between align-items-center">
-                                    <a href="{{ route('shop.all') }}" class="tf-btn btn-outline">
+                                    <a href="{{ route('shop.all') }}" class="mb-2 tf-btn btn-outline">
                                         <span class="icon icon-arrow-left"></span>
                                         <span class="text">Continue Shopping</span>
                                     </a>
                                     <form action="{{ route('cart.clear') }}" method="POST" class="d-inline clear-cart-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="tf-btn btn-outline btn-danger">
+                                        <button type="submit" class="mb-2 tf-btn btn-outline btn-danger">
                                             <span class="icon icon-trash"></span>
                                             <span class="text">Clear Cart</span>
                                         </button>
